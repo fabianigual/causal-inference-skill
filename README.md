@@ -47,6 +47,16 @@ Incluye criterios para elegir meta-learners y árboles o bosques causales/uplift
 
 La guía distingue CATE de efecto individual, y ranking de calibración e inferencia. También revisa el uso de Qini/AUUC fuera de muestra y detalles de la API que pueden afectar la interpretación. Las firmas y capacidades deben comprobarse en la [documentación oficial de la versión utilizada](https://causalml.readthedocs.io/en/stable/causalml.html).
 
+## Instalación
+
+1. Descarga o clona este repositorio.
+2. Copia la carpeta que contiene `SKILL.md`, junto con sus recursos, en `~/.agents/skills/causal-inference/`. Crea los directorios si hace falta. Si ya tienes la skill instalada, actualiza esa instalación.
+3. Abre Codex y escribe `$causal-inference` seguido de tu pregunta o problema.
+
+Codex detecta las skills locales automáticamente; si no aparece, reinicia Codex. Consulta la [documentación oficial de instalación y uso](https://learn.chatgpt.com/docs/build-skills).
+
+Para ejecutar los ejemplos Python, instala sus dependencias según la sección de ejemplos ejecutables.
+
 ## Ejemplos de uso
 
 Cuando la skill esté registrada en Codex, puedes invocarla con `$causal-inference` y describir el problema. Conviene incluir lo que sabes sobre asignación, unidades, fechas, resultado y datos disponibles; la skill debe ayudarte a precisar lo demás.
