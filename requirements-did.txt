@@ -1,0 +1,4 @@
+# Recurso opcional para ATT por cohorte y período.
+# Resolver en un entorno compatible del análisis y registrar la versión usada.
+# No combinar automáticamente con los pins del ejemplo básico.
+differences

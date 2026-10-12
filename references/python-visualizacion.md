@@ -24,3 +24,11 @@ Para reproducirla, usar las dependencias de `../requirements.txt` en un entorno 
 ## Efectos heterogéneos con CausalML
 
 Para CATE, meta-learners, árboles o bosques de uplift, usa la [referencia de CausalML](causalml.md). Selecciona algoritmo y métricas después de justificar identificación. Incorpora tablas de comparación, CATE predicho por subgrupos, soporte y curvas de uplift/Qini cuando el diseño permita evaluarlas. Distingue ranking, calibración e inferencia; aplica el estilo de paper después de los imports de CausalML que puedan cambiarlo.
+
+## DiD y PSM: gráficos que respondan al diseño
+
+Para [DiD](did.md), prioriza calendario de adopción y disponibilidad de controles, tendencias en niveles, event study con cohorte/muestra por horizonte y bandas bien rotuladas, sensibilidad y poder por escenarios. El [ejemplo 2×2](../scripts/ejemplo_did.py) produce medias, IC sobre cambios y simulación; la proyección paralela representa una hipótesis, no un contrafactual observado.
+
+Para [PSM](psm.md), combina Love plot con denominador SMD declarado, soporte de propensión antes/después, distribuciones de covariables críticas, distancias de pares, retención y pesos de controles reutilizados. Evita juzgar balance solo por la distribución del score. El [ejemplo de diagnósticos](../scripts/ejemplo_psm_diagnosticos.py) conserva pares y exporta balance, retención y figuras; no estima efectos.
+
+Ambos ejemplos usan datos sintéticos y dependencias básicas. Ejecuta desde la raíz del repositorio con `--output-dir RUTA` en el espacio del análisis. Exportan CSV, tablas LaTeX, PNG/SVG y metadatos; el ejemplo DiD admite `--reps` y ambos registran semilla y versiones. Revisa figuras al tamaño de publicación.

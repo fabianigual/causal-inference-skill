@@ -108,3 +108,7 @@ Comprueba primero el entorno del análisis y la versión instalada de `causalml`
 `requirements-causalml.txt` declara el recurso opcional. Resuélvelo en un entorno del proyecto, comprueba compatibilidad e importación y registra las versiones que realmente se ejecutaron. No combines a ciegas esa instalación con los pins del ejemplo básico de poder. Instala extras únicamente cuando el método solicitado los necesite. Conserva semillas, particiones, reglas de preprocesamiento, mapeo de brazos y definición de métricas.
 
 Este módulo añade orientación y ejemplos contrastados con documentación y código fuente. No implica que CausalML se haya instalado ni ejecutado en el equipo. Al realizar un análisis, informa qué código se ejecutó y qué resultados permanecen propuestos.
+
+## Propensity score matching
+
+Para matching con CausalML, consulta [PSM](psm.md): selección sobre observables, población retenida, balance, calipers, pares/pesos, inferencia y sensibilidad. `NearestNeighborMatch` y `create_table_one` apoyan la etapa de diseño; no equivalen a un meta-learner ni certifican un IC del efecto. Distingue la muestra emparejada de la estructura de pares necesaria para el análisis posterior.

@@ -10,3 +10,8 @@ Un intervalo debe indicar nivel, parámetro, unidades, método y población. Sel
 
 Para resultados múltiples, efectos por subgrupo o event studies, distinguir inferencia puntual y simultánea, análisis confirmatorio y exploratorio. No escoger especificaciones, controles o ventanas para obtener significación.
 
+## DiD y PSM
+
+Para [DiD](did.md), planifica con varianza de cambios en el caso básico y simula calendario, dinámica, dependencia y estimador en diseños complejos. No confundas correlación pre–post con ICC ni número de personas con número de grupos de asignación. Para event studies, define si el objetivo es un efecto puntual, agregado o una familia de efectos.
+
+Para [PSM](psm.md), incluye estimación de score, matching, pérdidas de tratados y reutilización en la simulación. Un cálculo condicional para pares puede ser un punto de partida, pero no valida el diseño construido ni su inferencia. La rutina de matching de una biblioteca no proporciona por sí sola un IC. Evalúa poder junto con retención, sesgo, error tipo I y cobertura.

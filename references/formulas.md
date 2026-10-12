@@ -120,3 +120,59 @@ $$
 $$
 
 $m_a(x)=E[Y\mid A=a,X=x]$. La interpretación causal requiere los supuestos pertinentes de identificación; los modelos separados añaden condiciones de estimación y soporte. CATE es un promedio condicional, no la diferencia individual observada de resultados potenciales. Para implementación y validación, consulta [CausalML](causalml.md).
+
+### F12. DiD de panel: varianza de cambios y ATT por cohorte
+
+$$
+\Delta Y_i=Y_{i,post}-Y_{i,pre},\qquad
+\widehat\tau=\overline{\Delta Y}_T-\overline{\Delta Y}_C,\qquad
+\widehat{SE}^2=s_{\Delta,T}^2/n_T+s_{\Delta,C}^2/n_C.
+$$
+
+La última igualdad requiere independencia entre unidades y un panel completo sin pesos. Usa F5 sobre cambios para un IC de Welch bajo sus condiciones. No incorpora shocks compartidos entre personas de un municipio. Para planificación simple, $\operatorname{Var}(\Delta Y)=\sigma_{post}^2+\sigma_{pre}^2-2\operatorname{Cov}(Y_{post},Y_{pre})$. El [ejemplo DiD](../scripts/ejemplo_did.py) ejecuta este caso.
+
+Para adopción absorbente escalonada:
+
+$$
+ATT(g,t)=E[Y_t(g)-Y_t(\infty)\mid G=g],\qquad
+\theta=\sum_{(g,t)\in\mathcal I}\omega_{g,t}ATT(g,t),\qquad
+\sum_{(g,t)\in\mathcal I}\omega_{g,t}=1.
+$$
+
+$\mathcal I$ contiene comparaciones identificables y $\omega_{g,t}\ge0$ define el objetivo agregado. Es una definición de estimando, no un estimador universal. La elección de controles, pesos, horizonte e inferencia se desarrolla en [DiD](did.md), con referencias a Callaway y Sant’Anna (2021).
+
+### F13. Propensión y contraste de matching
+
+$$
+e(X)=P(A=1\mid X),\qquad
+\widehat\tau_M=\frac{1}{N_{T,M}}\sum_{i\in\mathcal T_M}
+\left(Y_i-\sum_{j\in\mathcal J(i)}w_{ij}Y_j\right),\qquad
+\sum_{j\in\mathcal J(i)}w_{ij}=1.
+$$
+
+$\mathcal T_M$ son tratados retenidos; $\mathcal J(i)$ son controles de cada tratado y $w_{ij}\ge0$. Con 1:k uniforme, $w_{ij}=1/k_i$. El peso agregado de un control reutilizado es $W_j=\sum_i w_{ij}$. El contraste requiere identificación y condiciones de aproximación del matching; no proporciona automáticamente su varianza. Consulta [PSM](psm.md) para población, soporte e inferencia y las fuentes de Rosenbaum–Rubin y Abadie–Imbens.
+
+### F14. SMD con referencia fija y concentración de pesos
+
+$$
+s_{ref,j}=\sqrt{(s_{T,j,pre}^2+s_{C,j,pre}^2)/2},\qquad
+SMD_{j,m}=\frac{\bar X_{T,j,m}^{w}-\bar X_{C,j,m}^{w}}{s_{ref,j}}.
+$$
+
+$m$ indica muestra antes o después del matching. Esta convención usa una SD pre fija para comparar balance en la misma escala; hay otras convenciones que deben declararse. Para indicadores binarios, declarar el denominador utilizado. Con referencia cero, informar que el SMD no está definido. El [ejemplo PSM](../scripts/ejemplo_psm_diagnosticos.py) implementa la versión sin pesos y sin reemplazo.
+
+$$
+ESS=\frac{(\sum_i w_i)^2}{\sum_i w_i^2}.
+$$
+
+Calcular sobre unidades originales por brazo, con pesos no negativos y suma positiva. Cuantifica concentración de pesos; no es el tamaño de muestra de un experimento equivalente ni los grados de libertad de un IC.
+
+### F15. MDE condicional de pares y error Monte Carlo
+
+$$
+\mathrm{MDE}\approx(z_{1-\alpha/2}+z_{1-\beta})\,\frac{\sigma_d}{\sqrt{N_{pares}}},
+\qquad
+MCSE(\hat p)=\sqrt{\hat p(1-\hat p)/B}.
+$$
+
+El MDE es una aproximación normal para un diseño de pares independientes ya especificado, con SD de diferencias $\sigma_d$ supuesta. No incorpora construcción de PSM, poda, reutilización o clusters. MCSE describe error de una tasa obtenida con $B$ repeticiones independientes; no es incertidumbre del efecto causal. Véanse [PSM](psm.md) y [DiD](did.md) para simulación del análisis completo.

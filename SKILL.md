@@ -1,6 +1,6 @@
 ---
 name: causal-inference
-description: "Asesora el diseño, análisis y revisión de evaluaciones de impacto e inferencia causal. Prioriza identificación, supuestos y amenazas reales; planifica poder y precisión, interpreta intervalos y produce fórmulas, tablas y gráficos académicos en Python, incluido CausalML para efectos heterogéneos y uplift cuando corresponda. Úsala para preguntas causales, no para modelado puramente predictivo."
+description: "Asesora el diseño, análisis y revisión de evaluaciones de impacto e inferencia causal. Prioriza identificación, supuestos y amenazas reales; planifica poder y precisión, interpreta intervalos y produce fórmulas, tablas y gráficos académicos en Python, con guías específicas para DiD y propensity score matching, y CausalML para efectos heterogéneos y uplift cuando corresponda. Úsala para preguntas causales, no para modelado puramente predictivo."
 ---
 
 # causal-inference
@@ -22,6 +22,7 @@ Revisa las decisiones anteriores si el contexto o los datos cambian. No fuerces 
 - Formula un estimando bien definido y mantén su población, horizonte y unidades en las conclusiones. Documenta cualquier cambio de estimando causado por restricciones de muestra, ponderación o soporte.
 - Considera el papel causal y el momento de medición antes de ajustar por una covariable. Para un efecto total, examina los problemas de ajustar por mediadores o colisionadores; otros efectos pueden requerir estrategias diferentes.
 - En DiD, revisa calendario, anticipación, tendencias paralelas, composición y comparaciones entre cohortes. Justifica el estimador para adopción escalonada y heterogeneidad. La ausencia de pre-tendencias significativas no certifica identificación.
+- En PSM, justifica selección sobre observables y soporte para el estimando; define covariables basales, algoritmo, caliper, pesos y población retenida. Diagnostica balance antes/después y justifica inferencia que considere emparejamiento, propensión estimada y reutilización. No equipares balance con ausencia de confusión.
 - En RD, precisa el efecto en el umbral, el marco de identificación, soporte, medición y manipulación del puntaje, otras reglas en el corte y sensibilidad local. Justifica cualquier extrapolación.
 - En ensayos, distingue ITT del efecto de recibir el tratamiento y conserva la lógica de asignación; revisa incumplimiento, pérdidas e interferencia.
 - Para ajuste observacional, explicita consistencia, intercambiabilidad y positividad pertinentes. Buen balance observado no descarta confusión no medida. No ajustes problemas longitudinales complejos como si fueran tratamientos puntuales independientes.
@@ -33,6 +34,8 @@ Revisa las decisiones anteriores si el contexto o los datos cambian. No fuerces 
 ## Referencias según la tarea
 
 - Para justificar un diseño, temporalidad y amenazas, consulta [identificación](references/identificacion.md).
+- Para DiD, adopción escalonada, tendencias paralelas o event studies, consulta [DiD](references/did.md), además del argumento de identificación.
+- Para propensity score matching, calipers, balance, soporte o inferencia tras matching, consulta [PSM](references/psm.md); distingue PSM de IPW y meta-learners.
 - Para poder, tamaño muestral, incertidumbre o simulación, consulta [poder e inferencia](references/poder-inferencia.md).
 - Para explicar o implementar una fórmula básica, consulta [fórmulas](references/formulas.md). Comprueba las condiciones de la ficha antes de usarla fuera del caso simple.
 - Para tablas, figuras o ejecución en Python, consulta [Python y visualización](references/python-visualizacion.md).
@@ -42,15 +45,21 @@ Revisa las decisiones anteriores si el contexto o los datos cambian. No fuerces 
 
 ## CausalML
 
+Para matching con `NearestNeighborMatch`, lee [PSM](references/psm.md) y verifica escala del score/caliper, retención, estructura de pares y alcance de `create_table_one`. La biblioteca puede ayudar a construir una comparación; la inferencia del efecto exige un procedimiento propio.
+
 Considera CausalML para CATE, heterogeneidad, uplift y reglas de tratamiento cuando encaje con la pregunta. Elige la familia de estimadores según diseño, resultado, soporte y muestra por brazo; verifica la API instalada. Distingue CATE de efecto individual, valida fuera de muestra y conserva el argumento de identificación. Lee la referencia específica para propensión, cross-fitting, incertidumbre y métricas. Qini/AUUC evalúan ranking bajo sus condiciones; no prueban causalidad. Aplica el estilo académico después de importar los módulos que puedan cambiarlo.
 
 ## Recursos ejecutables
+
+`scripts/ejemplo_did.py --output-dir RUTA --reps 1000` ilustra DiD 2×2 de panel con unidades independientes: IC sobre cambios, simulación de poder, error tipo I y cobertura, tablas y figuras. Para clusters, adopción escalonada o cambios de población, elige otro procedimiento.
+
+`scripts/ejemplo_psm_diagnosticos.py --output-dir RUTA` ilustra diseño PSM logístico y greedy 1:1 sin reemplazo; guarda pares, balance con denominador fijo, retención y figuras. Su alcance es diagnosticar el diseño; no proporciona un IC causal.
 
 `scripts/formulas_basicas.py` ofrece IC de Welch, semiancho normal de planificación, MDE normal aproximado, poder y tamaño para prueba t independiente y efecto de diseño para clusters iguales. Sus funciones calculan resultados estadísticos; no validan identificación causal.
 
 `scripts/ejemplo_poder_precision.py --output-dir RUTA` produce una muestra ilustrativa de poder, MDE y precisión con tabla CSV/LaTeX y figuras PNG/SVG. Usa `assets/paper.mplstyle`. Sirve de base visual; adapta parámetros y método al caso real en el espacio de trabajo del análisis.
 
-Comprueba dependencias existentes antes de ejecutar. `requirements.txt` registra versiones verificadas del ejemplo; úsalo en un entorno de trabajo cuando haga falta, sin imponer estas versiones a proyectos existentes. `requirements-causalml.txt` declara CausalML como dependencia opcional; resuelve compatibilidad en el entorno del análisis y registra versiones ejecutadas. Guarda datos, entornos y resultados del usuario fuera de la carpeta de la skill. Registra versiones, transformaciones, muestras y parámetros relevantes.
+Comprueba dependencias existentes antes de ejecutar. `requirements.txt` registra versiones verificadas del ejemplo; úsalo en un entorno de trabajo cuando haga falta, sin imponer estas versiones a proyectos existentes. `requirements-did.txt` declara `differences` para ATT por cohorte–período y `requirements-causalml.txt` declara CausalML; ambas son dependencias opcionales que no deben combinarse automáticamente con los pins básicos; resuelve compatibilidad en el entorno del análisis y registra versiones ejecutadas. Guarda datos, entornos y resultados del usuario fuera de la carpeta de la skill. Registra versiones, transformaciones, muestras y parámetros relevantes.
 
 ## Tablas y gráficos
 
