@@ -1,0 +1,4 @@
+# Dependencia opcional para análisis que utilicen CausalML.
+# Resolver compatibilidad en un entorno del proyecto y registrar versiones.
+# No combinar automáticamente con los pins del ejemplo básico de poder.
+causalml

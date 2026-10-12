@@ -1,0 +1,56 @@
+# Python: bytecode, extensiones compiladas y paquetes locales
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.dylib
+*.egg-info/
+*.egg
+/build/
+/dist/
+
+# Entornos y caches locales
+.venv/
+venv/
+env/
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.ipynb_checkpoints/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# Configuración local; conservar plantillas de variables de entorno
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Datos y resultados de análisis: usar estas carpetas locales
+/data/
+/work/
+/scratch/
+/tmp/
+/outputs/
+/results/
+/reports/
+*.log
+
+# Archivos locales de editores y macOS
+/.idea/
+/.vscode/
+.DS_Store
+.AppleDouble
+._*
+*~
+*.swp
+*.swo
+
+# Mantener versionados los scripts, referencias, requisitos y assets.
+# No excluir por extensión CSV, JSON, PNG, SVG, TEX, MD ni notebooks.

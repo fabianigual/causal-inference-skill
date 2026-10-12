@@ -1,0 +1,3 @@
+interface:
+  display_name: "causal-inference"
+  short_description: "Identificación causal, poder e inferencia en Python"
