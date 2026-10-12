@@ -6,6 +6,16 @@ La idea es que funcione como un asesor y una guía para hacer buena inferencia c
 
 El foco está en la **identificación causal**: qué efecto quiero estimar, para quién, qué comparación permite aprender sobre ese efecto y bajo qué supuestos. A partir de eso, incorpora cálculo de poder, efecto mínimo detectable, intervalos de confianza y análisis de sensibilidad. También incluye un set de fórmulas, partiendo con las básicas, y recursos en Python para trabajar con tablas y gráficos con un estilo visual cercano al de LaTeX usado en papers.
 
+## Instalación
+
+1. Descarga o clona este repositorio.
+2. Copia la carpeta que contiene `SKILL.md`, junto con sus recursos, en `~/.agents/skills/causal-inference/`. Crea los directorios si hace falta. Si ya tienes la skill instalada, actualiza esa instalación.
+3. Abre Codex y escribe `$causal-inference` seguido de tu pregunta o problema.
+
+Codex detecta las skills locales automáticamente; si no aparece, reinicia Codex. Consulta la [documentación oficial de instalación y uso](https://learn.chatgpt.com/docs/build-skills).
+
+Para ejecutar los ejemplos Python, instala sus dependencias según la sección de ejemplos ejecutables.
+
 ## Para qué sirve
 
 - Diseñar una evaluación antes de implementar una intervención.
@@ -47,15 +57,6 @@ Incluye criterios para elegir meta-learners y árboles o bosques causales/uplift
 
 La guía distingue CATE de efecto individual, y ranking de calibración e inferencia. También revisa el uso de Qini/AUUC fuera de muestra y detalles de la API que pueden afectar la interpretación. Las firmas y capacidades deben comprobarse en la [documentación oficial de la versión utilizada](https://causalml.readthedocs.io/en/stable/causalml.html).
 
-## Instalación
-
-1. Descarga o clona este repositorio.
-2. Copia la carpeta que contiene `SKILL.md`, junto con sus recursos, en `~/.agents/skills/causal-inference/`. Crea los directorios si hace falta. Si ya tienes la skill instalada, actualiza esa instalación.
-3. Abre Codex y escribe `$causal-inference` seguido de tu pregunta o problema.
-
-Codex detecta las skills locales automáticamente; si no aparece, reinicia Codex. Consulta la [documentación oficial de instalación y uso](https://learn.chatgpt.com/docs/build-skills).
-
-Para ejecutar los ejemplos Python, instala sus dependencias según la sección de ejemplos ejecutables.
 
 ## Ejemplos de uso
 
@@ -163,15 +164,12 @@ El `.gitignore` excluye entornos, caches, archivos locales, configuración de en
 
 La idea es seguir profundizando la skill con tareas verificables: qué recurso se entregará, qué problema resolverá y cómo se comprobará. El foco sigue siendo la identificación causal y las decisiones que permiten hacer una evaluación defendible en escenarios reales.
 
-### Prioridad alta
-
-- [ ] Ejecutar los casos de validación existentes y evaluar identificación, supuestos, elección del estimador, inferencia y recomendaciones prácticas.
 - [ ] Incluir casos donde corresponda limitar la conclusión causal o solicitar información decisiva.
 - [ ] Ejecutar las integraciones con `differences` y CausalML en entornos reproducibles, registrando versiones y resultados.
 - [ ] Añadir un ejemplo completo de DiD con adopción escalonada: ATT por cohorte y período, agregación, event study e incertidumbre.
 - [ ] Añadir un ejemplo completo de PSM con estimación del efecto e intervalos respaldados para el algoritmo elegido, documentando exclusiones, pesos y reutilización.
 - [ ] Desarrollar un caso completo de **test A/B para diseño de productos**, por ejemplo una variante de onboarding: definir la hipótesis, población elegible, unidad de asignación, efecto de asignación (ITT), métrica principal y métricas de resguardo; planificar poder, MDE, tamaño de muestra y duración; analizar efectos absolutos y relativos con intervalos y traducir los resultados a una decisión de producto.
-
+ 
 ### Profundización metodológica
 
 - [ ] Ampliar simulaciones de poder y precisión para clusters, tamaños desiguales, autocorrelación, pérdidas y soporte débil; revisar sesgo, error tipo I y cobertura.
