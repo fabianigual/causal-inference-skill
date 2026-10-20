@@ -54,3 +54,6 @@ coverage.xml
 
 # Mantener versionados los scripts, referencias, requisitos y assets.
 # No excluir por extensión CSV, JSON, PNG, SVG, TEX, MD ni notebooks.
+
+# Paquete local de distribución
+/causal-inference.zip

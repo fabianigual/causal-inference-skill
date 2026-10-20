@@ -1,0 +1,126 @@
+{
+  "fecha": "2026-10-20",
+  "tipo": "prueba de uso con skill; una pasada de ocho solicitudes públicas",
+  "evaluador_respuestas": "agente independiente /root/validacion_skill; contexto sin historial de la auditoría",
+  "modelo_y_configuracion": "identificador exacto, versión y parámetros de muestreo no expuestos; no registrados",
+  "instruccion": "Leer SKILL.md y referencias metodológicas pertinentes; no leer README, tests ni referencias/validacion*.md; responder a ocho solicitudes en español, hasta 180 palabras por caso; no revisar editorialmente ni modificar el proyecto.",
+  "solicitudes_y_rubricas": "../casos_asesor.json",
+  "respuestas": "2026-10-20-respuestas.md",
+  "calificacion": "revisión manual del agente autor, posterior a las respuestas; cada vector sigue el orden de criterios del caso",
+  "escala": {
+    "0": "ausente o incorrecto",
+    "1": "parcial",
+    "2": "correcto y aplicado"
+  },
+  "resultados": [
+    {
+      "id": "matching_did",
+      "puntuacion_por_criterio": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "fallos_criticos": [],
+      "fundamento": "Distingue niveles de tendencias, explica shocks y regresión a la media y propone reconstruir selección e historia sin escoger por significación."
+    },
+    {
+      "id": "iv_incentivo",
+      "puntuacion_por_criterio": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "fallos_criticos": [],
+      "fundamento": "Cuestiona exclusión por orientación laboral, conserva ITT del paquete, delimita LATE y rechaza F=12 como garantía de cobertura."
+    },
+    {
+      "id": "rd_discreta",
+      "puntuacion_por_criterio": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "fallos_criticos": [],
+      "fundamento": "Separa oferta y recepción, reconoce cinco puntos de soporte, explica extrapolación y distingue los dos marcos de identificación."
+    },
+    {
+      "id": "aipw_clipping",
+      "puntuacion_por_criterio": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "fallos_criticos": [],
+      "fundamento": "Explicita identificación, consistencia e inferencia; distingue truncamiento de propensión y población de overlap y señala límites de cross-fitting."
+    },
+    {
+      "id": "perdidas",
+      "puntuacion_por_criterio": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "fallos_criticos": [],
+      "fundamento": "Delimita efecto de asignación, examina razones y predictores de pérdida, exige hipótesis de imputación y propone sensibilidad o cotas con población explícita."
+    },
+    {
+      "id": "tratamiento_longitudinal",
+      "puntuacion_por_criterio": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "fallos_criticos": [],
+      "fundamento": "Define régimen y comparación, reconoce feedback tratamiento-confusor y propone g-métodos con supuestos secuenciales y soporte."
+    },
+    {
+      "id": "politica",
+      "puntuacion_por_criterio": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "fallos_criticos": [],
+      "fundamento": "Reconoce selección de umbral, exige evaluación independiente de beneficio neto frente a política vigente e incertidumbre de diferencias."
+    },
+    {
+      "id": "ensayo_pares",
+      "puntuacion_por_criterio": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "fallos_criticos": [],
+      "fundamento": "Respeta municipios y pares, cuenta ocho asignaciones y distingue nulo agudo, promedio y resolución del p-valor."
+    }
+  ],
+  "limites": [
+    "No hay condición sin skill ni casos reservados",
+    "Una sola respuesta por caso, en una misma sesión del evaluador",
+    "La puntuación es revisión del autor, no calificación ciega independiente",
+    "No estima tasa general de error, mejora causal por usar skill ni cobertura de integraciones"
+  ],
+  "sha256_recursos_consultados": {
+    "SKILL.md": "c4e9ea87617cf0237ea367ff807fa0cbee397a85781ed9cdcaa77caf3a1ef5bc",
+    "references/identificacion.md": "3fd6fb252df61db858d363071da37e42bfb39b3c47b06cc15a79a2eb8160abb5",
+    "references/did.md": "d3e4814fe4c692c0d6b01f18905b9d3459e03b466333deaea38a1989545d2fc8",
+    "references/psm.md": "88ba4ae0bf92979c4046c3edab36af0dfc8cd3c02bf5e97a68fdb90fb46757d0",
+    "references/iv.md": "5d24ee439bdc7aa8833bb891fd67bf2caea833a85a8b3e746df1c398cb20b51b",
+    "references/rd.md": "86ac3a8f0111d04501b732c916a59ec3fc593f74701e4761551313d21069cd46",
+    "references/ajuste-observacional.md": "984dd1e31c0fae856023891d57a63ae81f93f5ccfb979e3c7fe31d469cbf292b",
+    "references/seleccion-longitudinal.md": "6b063ade0f2d6398a8f1b9f0d5c6a6367b13dfe6c6189e2b80017cf1850879a4",
+    "references/causalml.md": "8126dcc92be82d96700e149a79733227a91cf8aaebf9db04f9ec7bfd9f0e158f",
+    "references/experimentos.md": "cf0af07aac4862d10d2508a5e474db541d70a0c725a1753ba40b85646b08d84c",
+    "references/poder-inferencia.md": "35e03730e83bd7799813847a6d035f4f8dac961583fdb4574831672365b82dc9"
+  },
+  "sha256_rubrica": "f7644a061defc0a96499448dfc7a08206b3d9b8482819f839078b7d7b6dbd20c",
+  "sha256_respuestas": "ee889181dbe8434c61c53c4a8e75c83742a0d528d2c1530255b8d2e2776faf76"
+}

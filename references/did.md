@@ -81,6 +81,8 @@ Los pretests pueden tener poco poder y seleccionar análisis que distorsionen es
 
 Placebos de fecha, resultados o grupos pueden revelar problemas específicos, si se justifica por qué deberían dar cero. No constituyen un certificado global. Agregar tendencias lineales por grupo cambia la extrapolación contrafactual; debe explicarse y someterse a sensibilidad.
 
+Si construyes controles mediante matching sobre resultados previos, revisa también la [regresión a la media inducida por el emparejamiento](psm.md#9-psm-combinado-con-did). Tendencias paralelas en la población original no garantizan tendencias paralelas después de esa selección.
+
 ## 6. Inferencia, pocos clusters y sensibilidad
 
 Identifica el nivel que comparte asignación y shocks, además de la repetición por unidad. Usa una varianza que represente esa dependencia; registra número total y tratado de clusters, desigualdad de tamaños, procedimiento y valor crítico. La inferencia asintótica puede fallar con pocos grupos o alta concentración. Un wild cluster bootstrap requiere condiciones propias; la inferencia por randomización requiere un mecanismo de asignación defendible. Ninguno sustituye controles comparables. Para el marco general, consulta [Roth et al. (2023)](https://arxiv.org/abs/2201.01194).

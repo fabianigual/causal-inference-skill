@@ -6,6 +6,16 @@ Evaluar si identifica el parámetro y el mecanismo de asignación, prioriza amen
 
 Validar los cálculos contra rutinas de referencia y casos conocidos. Para procedimientos complejos, evaluar sesgo, error tipo I y cobertura mediante simulación repetida, incluyendo error Monte Carlo. Comparar el comportamiento del asesor con y sin la skill sobre casos reservados; la validación de estructura de archivos no prueba corrección metodológica.
 
+## Pruebas reproducibles y evaluación de respuestas
+
+Ejecuta `python -m unittest discover -s tests -v` desde la raíz, con las dependencias básicas disponibles. La batería comprueba Welch frente a SciPy, poder t mediante integración independiente, tamaño tras redondear, DiD de panel, caliper, retención, scores constantes y balance con denominador fijo. Incluye un caso construido donde matching basal cambia un DiD de cero a uno pese a efecto nulo. No comprueba las integraciones opcionales.
+
+Para evaluar al asesor, usa [solicitudes y rúbricas](../tests/casos_asesor.json). Entrega al evaluador solo la solicitud y los recursos necesarios; conserva criterios y fallos críticos para calificar la respuesta después. Puntúa cada criterio como 0 (ausente o incorrecto), 1 (parcial) o 2 (correcto y aplicado al caso). Registra por separado cualquier fallo crítico: una suma alta no lo compensa. Evalúa decisiones y alcance, no coincidencias de palabras.
+
+Guarda solicitud, respuesta, puntuación razonada, fecha, versión o hash de la skill, modelo y configuración disponibles. No inventes metadatos que el entorno no exponga. Los casos públicos sirven como regresiones de comportamiento; para una comparación con/sin skill, usa además casos reservados no utilizados al editarla, mismas condiciones y repeticiones suficientes para examinar variabilidad. Una lectura de la rúbrica por el autor no cuenta como una ejecución independiente.
+
+Consulta [resultados de validación](validacion-resultados.md) para distinguir comprobaciones ejecutadas y trabajo pendiente. Registra versiones al ejecutar scripts e integraciones; conservar una firma de API no demuestra cobertura estadística.
+
 
 ## Casos para la integración de CausalML
 
@@ -41,5 +51,7 @@ Probar ejecución en un entorno compatible cuando se añadan scripts o se realic
 | Se pide bootstrap ordinario para vecinos con k fijo | Explicar límites y buscar método de inferencia respaldado para ese estimador |
 | Caliper 0.2 se interpreta igual en todas las APIs | Verificar escala, estandarización y SD de referencia en la versión usada |
 | PSM+DiD se presenta como doblemente robusto por definición | Distinguir condiciones de matching, tendencias paralelas y construcción de DR-DiD |
+| Matching iguala resultados basales ruidosos entre grupos con niveles persistentes distintos | Examinar regresión a la media y tendencias contrafactuales después de seleccionar pares |
+| Propensión conocida constante en ambos brazos | Admitir empates reproducibles; no confundir falta de variación con falta de soporte |
 
 Verifica el ejemplo DiD contra la identidad de cuatro medias y rutinas de Welch sobre cambios, y evalúa error tipo I/cobertura con error Monte Carlo. En el ejemplo PSM, verifica caliper, IDs sin reutilización, retención, casos sin soporte y denominador SMD fijo con cálculos manuales. Estas pruebas de código no sustituyen evaluar las respuestas del asesor sobre los casos reservados.

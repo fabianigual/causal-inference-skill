@@ -32,4 +32,18 @@
 - [HonestDiD oficial](https://github.com/asheshrambachan/HonestDiD): implementación y ejemplos de sensibilidad en R, con enlace a Stata. No atribuirle una API Python verificada.
 - [CausalML matching: código documentado](https://causalml.readthedocs.io/en/stable/_modules/causalml/match.html): matching, escala de caliper y definición de balance.
 
-Consultadas el 12 de octubre de 2026. Los ejemplos de API de `differences` y matching de CausalML fueron contrastados con documentación; requieren validación en el entorno del análisis. Los dos ejemplos sintéticos autocontenidos se ejecutaron con las dependencias básicas.
+Las fuentes de los ejemplos de API de `differences` y matching de CausalML se contrastaron con documentación el 12 de octubre de 2026; sus integraciones requieren validación en el entorno del análisis. Consulta [resultados de validación](validacion-resultados.md) para las ejecuciones y versiones de los ejemplos autocontenidos.
+
+## Ajuste, selección y otros diseños
+
+- Daw, J. R., & Hatfield, L. A. (2018). [Matching and Regression to the Mean in Difference-in-Differences Analysis](https://onlinelibrary.wiley.com/doi/10.1111/1475-6773.12993). Riesgos de emparejar resultados previos ruidosos en DiD.
+- Imbens, G. W., & Angrist, J. D. (1994). [Identification and Estimation of Local Average Treatment Effects](https://www.nber.org/papers/t0118). Población local y supuestos para LATE.
+- Angrist, J. D., Imbens, G. W., & Rubin, D. B. [Identification of Causal Effects Using Instrumental Variables](https://www.nber.org/papers/t0136). Marco de resultados potenciales para IV; versión de trabajo de 1993, publicada en 1996.
+- Lee, D. S., McCrary, J., Moreira, M. J., & Porter, J. (2022). [Valid t-Ratio Inference for IV](https://www.nber.org/papers/w29124). Límites de inferencia convencional y fuerza del instrumento.
+- Cattaneo, M. D., Titiunik, R., & Vazquez-Bare, G. (2020). [The Regression Discontinuity Design](https://mdcattaneo.github.io/papers/Cattaneo-Titiunik-VazquezBare_2020_Sage.pdf). Identificación, estimación, sesgo e inferencia local.
+- Chernozhukov et al. (2018). [Double/Debiased Machine Learning for Treatment and Structural Parameters](https://www.nber.org/papers/w23564). Scores ortogonales, cross-fitting y condiciones de inferencia.
+- Lee, D. S. (2009). [Training, Wages, and Sample Selection: Estimating Sharp Bounds on Treatment Effects](https://www.nber.org/papers/w11721). Cotas bajo selección monotónica y población de interés.
+- Lin, W. (2013). [Agnostic Notes on Regression Adjustments to Experimental Data: Reexamining Freedman's Critique](https://doi.org/10.1214/12-AOAS583). Ajuste basal e inferencia en experimentos.
+- Athey, S., & Wager, S. (2021). [Policy Learning with Observational Data](https://onlinelibrary.wiley.com/doi/10.3982/ECTA15732). Aprendizaje y evaluación de reglas de tratamiento.
+
+Referencias incorporadas en la revisión metodológica del 20 de octubre de 2026. Los enlaces a NBER pueden llevar a la versión de trabajo del artículo citado. Para selección y tratamientos longitudinales, consulta también el libro de Hernán y Robins incluido al inicio.

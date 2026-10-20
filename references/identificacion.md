@@ -24,3 +24,5 @@ Si la identificación no se sostiene, precisar qué efecto no puede respaldarse,
 | Dependencia | Asignación, repetición temporal y correlación espacial | Elegir inferencia congruente con muestreo, asignación y dependencia |
 | Generalización | Diferencia entre muestra analizada y población objetivo | Limitar alcance o justificar transporte bajo supuestos adicionales |
 
+Si una amenaza cambia el procedimiento, consulta la guía pertinente: [selección y longitudinalidad](seleccion-longitudinal.md) para pérdidas y confusión temporal; [ajuste observacional](ajuste-observacional.md) para selección sobre observables; [IV](iv.md), [RD](rd.md) o [experimentos](experimentos.md) para la variación propia de esos diseños. Una lista de amenazas no reemplaza esas decisiones.
+

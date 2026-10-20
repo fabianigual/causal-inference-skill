@@ -23,9 +23,10 @@ Revisa las decisiones anteriores si el contexto o los datos cambian. No fuerces 
 - Considera el papel causal y el momento de medición antes de ajustar por una covariable. Para un efecto total, examina los problemas de ajustar por mediadores o colisionadores; otros efectos pueden requerir estrategias diferentes.
 - En DiD, revisa calendario, anticipación, tendencias paralelas, composición y comparaciones entre cohortes. Justifica el estimador para adopción escalonada y heterogeneidad. La ausencia de pre-tendencias significativas no certifica identificación.
 - En PSM, justifica selección sobre observables y soporte para el estimando; define covariables basales, algoritmo, caliper, pesos y población retenida. Diagnostica balance antes/después y justifica inferencia que considere emparejamiento, propensión estimada y reutilización. No equipares balance con ausencia de confusión.
-- En RD, precisa el efecto en el umbral, el marco de identificación, soporte, medición y manipulación del puntaje, otras reglas en el corte y sensibilidad local. Justifica cualquier extrapolación.
+- En RD, distingue asignación sharp/fuzzy y continuidad/local randomization; justifica efecto local, soporte, ancho de banda e inferencia que considere el sesgo. Examina manipulación y otras reglas en el corte antes de extrapolar.
+- En IV, justifica relevancia, independencia y exclusión; para LATE, también monotonicidad y población de compliers. Revisa instrumentos débiles y no interpretes automáticamente el resultado como ATE o ATT.
 - En ensayos, distingue ITT del efecto de recibir el tratamiento y conserva la lógica de asignación; revisa incumplimiento, pérdidas e interferencia.
-- Para ajuste observacional, explicita consistencia, intercambiabilidad y positividad pertinentes. Buen balance observado no descarta confusión no medida. No ajustes problemas longitudinales complejos como si fueran tratamientos puntuales independientes.
+- Para ajuste observacional, explicita consistencia, intercambiabilidad y positividad pertinentes. Elige ajuste, ponderación o estimación doblemente robusta según el estimando y sus condiciones. Buen balance observado no descarta confusión no medida. Si hay pérdidas o confusión temporal afectada por tratamiento previo, revisa identificación e inferencia para ese proceso.
 - Elige la varianza y el valor crítico según el diseño. No uses siempre 1.96 ni trates individuos de un mismo cluster como unidades independientes. Con pocos clusters, justifica el procedimiento y sus límites.
 - El poder exige una alternativa y un diseño explícitos. No presentes poder retrospectivo calculado con el efecto observado como evidencia adicional. Más muestra puede mejorar precisión sin resolver sesgo.
 - Un resultado no significativo puede admitir efectos sustantivos. Interpreta intervalos en unidades relevantes; distingue intervalos puntuales y simultáneos, multiplicidad y análisis confirmatorio/exploratorio.
@@ -36,6 +37,10 @@ Revisa las decisiones anteriores si el contexto o los datos cambian. No fuerces 
 - Para justificar un diseño, temporalidad y amenazas, consulta [identificación](references/identificacion.md).
 - Para DiD, adopción escalonada, tendencias paralelas o event studies, consulta [DiD](references/did.md), además del argumento de identificación.
 - Para propensity score matching, calipers, balance, soporte o inferencia tras matching, consulta [PSM](references/psm.md); distingue PSM de IPW y meta-learners.
+- Para ATE/ATT mediante estandarización, IPW o AIPW, consulta [ajuste observacional](references/ajuste-observacional.md).
+- Para instrumentos o incumplimiento analizado mediante IV, consulta [variables instrumentales](references/iv.md); para un umbral de asignación, consulta [RD](references/rd.md).
+- Para ensayos, asignación por bloques, pares o clusters y ajuste basal, consulta [experimentos](references/experimentos.md).
+- Para pérdidas, censura o tratamiento que cambia en el tiempo, consulta [selección y longitudinalidad](references/seleccion-longitudinal.md).
 - Para poder, tamaño muestral, incertidumbre o simulación, consulta [poder e inferencia](references/poder-inferencia.md).
 - Para explicar o implementar una fórmula básica, consulta [fórmulas](references/formulas.md). Comprueba las condiciones de la ficha antes de usarla fuera del caso simple.
 - Para tablas, figuras o ejecución en Python, consulta [Python y visualización](references/python-visualizacion.md).
@@ -58,6 +63,8 @@ Considera CausalML para CATE, heterogeneidad, uplift y reglas de tratamiento cua
 `scripts/formulas_basicas.py` ofrece IC de Welch, semiancho normal de planificación, MDE normal aproximado, poder y tamaño para prueba t independiente y efecto de diseño para clusters iguales. Sus funciones calculan resultados estadísticos; no validan identificación causal.
 
 `scripts/ejemplo_poder_precision.py --output-dir RUTA` produce una muestra ilustrativa de poder, MDE y precisión con tabla CSV/LaTeX y figuras PNG/SVG. Usa `assets/paper.mplstyle`. Sirve de base visual; adapta parámetros y método al caso real en el espacio de trabajo del análisis.
+
+Para mantener o auditar los recursos, `python -m unittest discover -s tests -v` comprueba cálculos y casos límite. Los [casos de validación](references/validacion.md) separan estas pruebas de la evaluación del comportamiento de Codex. No ejecutes toda la batería para responder una consulta metodológica acotada.
 
 Comprueba dependencias existentes antes de ejecutar. `requirements.txt` registra versiones verificadas del ejemplo; úsalo en un entorno de trabajo cuando haga falta, sin imponer estas versiones a proyectos existentes. `requirements-did.txt` declara `differences` para ATT por cohorte–período y `requirements-causalml.txt` declara CausalML; ambas son dependencias opcionales que no deben combinarse automáticamente con los pins básicos; resuelve compatibilidad en el entorno del análisis y registra versiones ejecutadas. Guarda datos, entornos y resultados del usuario fuera de la carpeta de la skill. Registra versiones, transformaciones, muestras y parámetros relevantes.
 

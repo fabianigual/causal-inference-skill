@@ -42,6 +42,8 @@ A modo de escenario inicial puede explorarse un caliper de 0.2 SD del logit; no 
 
 Conserva identificadores originales, tabla de pares o conjuntos, distancias, pesos, tratados descartados y controles reutilizados. Los datos emparejados por sí solos pueden perder la estructura necesaria para inferencia. Restricciones geográficas o temporales deben responder a comparabilidad y exposición, sin ajustar por variables afectadas por tratamiento.
 
+Un score constante no implica falta de soporte: con probabilidades de asignación iguales puede ser el valor correcto. En ese caso, los candidatos empatan; registra la regla de desempate y revisa covariables originales. El ejemplo autocontenido admite coincidencias exactas con caliper absoluto cero. Esto no convierte un score constante mal especificado en evidencia de comparabilidad.
+
 ## 4. Diagnosticar comparabilidad
 
 Reporta balance antes/después en covariables originales, no solo en propensión. Usa diferencias estandarizadas, prevalencias, distribuciones, interacciones relevantes y varianzas. Los p-valores de diferencias basales dependen del tamaño muestral y no son el criterio de balance. Un umbral $|SMD|<0.1$ es orientativo, no una prueba de ausencia de sesgo. Estas herramientas y sus límites se discuten en [Austin (2009)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3472075/).
@@ -123,6 +125,8 @@ Figuras pertinentes: Love plot de balance; soporte por brazo antes/después; dis
 ## 9. PSM combinado con DiD
 
 Emparejar con covariables e historias previas puede mejorar comparabilidad para DiD. No reemplaza tendencias paralelas condicionales, ausencia de anticipación ni disponibilidad de controles sin exposición. Define el matching en el pre, conserva la estructura longitudinal y pesos, y aplica una inferencia adecuada a ambas etapas. No emparejes usando resultados posteriores. Un DiD doblemente robusto tiene una construcción específica, como la de [Sant’Anna y Zhao (2020)](https://doi.org/10.1016/j.jeconom.2020.06.003); no equivale a cualquier combinación de PSM y regresión. Sigue la [guía DiD](did.md).
+
+Antes de emparejar resultados previos o sus tendencias, examina persistencia, ruido transitorio y selección. Igualar niveles basales ruidosos entre grupos con diferencias persistentes puede introducir regresión a la media y sesgar un DiD que era válido sin matching. Justifica tendencias paralelas para la población emparejada; el balance del pre no establece ese supuesto. [Daw y Hatfield (2018)](https://onlinelibrary.wiley.com/doi/10.1111/1475-6773.12993) estudian esta amenaza. Compara diseños defendibles por el contexto, sin escoger el que produzca trayectorias visualmente más parecidas.
 
 ## 10. Entrega del asesor
 

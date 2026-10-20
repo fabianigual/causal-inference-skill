@@ -38,6 +38,8 @@ La [API oficial](https://causalml.readthedocs.io/en/stable/causalml.html) incluy
 - Para métodos que requieren predicciones de modelos auxiliares fuera de muestra, comprueba o implementa cross-fitting congruente con el diseño. Cross-fitting y un holdout externo cumplen funciones diferentes; no los presentes como intercambiables ni asumas que toda clase los incorpora automáticamente.
 - Cuando el algoritmo use propensión, en un ensayo considera las probabilidades conocidas de asignación, incluidas estratificación o múltiples brazos. En observacionales, estima y diagnostica propensión según el análisis. Documenta cualquier clipping o trimming y sus efectos sobre población y estimando.
 
+Para ATE/ATT mediante modelos auxiliares, consulta [ajuste observacional](ajuste-observacional.md). Distingue doble robustez de consistencia, condiciones de inferencia y cross-fitting. Truncar propensiones sin excluir filas puede sesgar el objetivo original; no define automáticamente otra población causal.
+
 Un detalle relevante de la implementación: en el [T-learner documentado](https://causalml.readthedocs.io/en/stable/_modules/causalml/inference/meta/tlearner.html), `p` no se utiliza en el ajuste. Pasarlo no convierte al método en un estimador ponderado por propensión. El T-learner ajusta resultados por covariables mediante modelos separados y necesita sus condiciones de identificación y estimación.
 
 ## Ejemplo de API: tratamiento binario y resultado continuo
@@ -94,6 +96,22 @@ El [código oficial de métricas](https://causalml.readthedocs.io/en/stable/_mod
 Para intervalos, verifica qué devuelve `estimate_ate`, `return_ci` o la rutina de la clase: estimando, nivel, procedimiento, muestra y supuestos. No generalices capacidades entre clases o versiones. Un bootstrap por filas puede ser inadecuado para clusters; justifica la unidad de remuestreo, la repetición de ajuste y selección, y sus condiciones de validez. No presentes intervalos de CATE como cobertura de efectos individuales ni como bandas simultáneas sin una construcción específica. Para subgrupos y reglas de tratamiento elegidos con datos, considera selección, multiplicidad y evaluación independiente.
 
 Las rutinas de sensibilidad o placebos requieren una amenaza y una interpretación sustantivas. Que una perturbación deje estable el resultado no certifica ausencia de sesgo no medido.
+
+## Evaluar una regla de tratamiento
+
+Si la pregunta es a quién tratar, define una regla $\pi(X)$, población, horizonte, costo y capacidad. Para una regla binaria fija, su valor puede expresarse como $V(\pi)=E[Y(\pi(X))]$; si interesa beneficio neto, especifica cómo se valoran resultados y costos. Qini/AUUC no determinan por sí solos el umbral de tratamiento ni el valor de esa política.
+
+Aprende la regla y elige su umbral sin usar la muestra de evaluación final. En esa muestra, usa una evaluación IPW o doblemente robusta compatible con asignación, soporte y dependencia. Para una regla determinista fija y covariables basales suficientes, una contribución habitual es:
+
+$$
+\widehat v_i(\pi)=\widehat m_{\pi(X_i)}(X_i)
++\frac{\mathbf 1\{A_i=\pi(X_i)\}}{\widehat p_{\pi(X_i)}(X_i)}
+\{Y_i-\widehat m_{\pi(X_i)}(X_i)\},
+$$
+
+donde $p_1=e$ y $p_0=1-e$. Justifica identificación y condiciones de estimación e inferencia; si ajustas modelos auxiliares con datos de evaluación, usa particiones apropiadas. La fórmula no autoriza seleccionar la regla con esos mismos resultados y reportar un IC como si estuviera fijada previamente.
+
+Compara con tratar a todos, a ninguno o con la política vigente, según factibilidad y soporte; usa la covarianza de contribuciones al inferir diferencias de valor sobre la misma muestra. Separa evaluación condicional a una regla aprendida de incertidumbre del procedimiento que la aprende. Reporta población alcanzada, costos, restricciones e incertidumbre. Véase [Athey y Wager (2021)](https://onlinelibrary.wiley.com/doi/10.3982/ECTA15732). Esta guía no presupone que las métricas de CausalML implementen esa evaluación.
 
 ## Gráficos y tablas académicas
 

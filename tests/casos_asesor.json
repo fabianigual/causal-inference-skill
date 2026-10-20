@@ -1,0 +1,50 @@
+[
+  {
+    "id": "matching_did",
+    "solicitud": "Evalúo una capacitación. Los participantes tenían ingresos persistentemente mayores, pero ambos grupos evolucionaban parecido. Emparejé exactamente el ingreso del último año previo, que fluctúa bastante, y ahora el balance inicial es perfecto. ¿Es más creíble el DiD emparejado?",
+    "criterios": ["Distingue balance de niveles y tendencias contrafactuales", "Explica posible regresión a la media creada por matching", "Pide o usa información sobre persistencia y selección", "Propone comparar diseños justificados sin seleccionar por significación"],
+    "fallos_criticos": ["Afirma que matching previo garantiza tendencias paralelas", "Recomienda siempre descartar resultados previos sin considerar el mecanismo"]
+  },
+  {
+    "id": "iv_incentivo",
+    "solicitud": "Sorteamos una invitación a capacitación. La invitación incluía orientación laboral aunque la persona no asistiera. La primera etapa dio F=12. Quiero usar la invitación como instrumento para estimar el efecto de asistir sobre empleo para todos los participantes. ¿Puedo reportar 2SLS y su IC usual?",
+    "criterios": ["Detecta vía directa que amenaza exclusión", "Distingue ITT, recepción y LATE", "No generaliza a todos los participantes", "Explica que F=12 no garantiza inferencia convencional"],
+    "fallos_criticos": ["La aleatorización prueba exclusión", "F>10 certifica el IC", "Interpreta IV como ATT sin condiciones adicionales"]
+  },
+  {
+    "id": "rd_discreta",
+    "solicitud": "Una beca se ofrece desde 60 puntos. Solo observo puntajes 50, 55, 60, 65 y 70, con miles de alumnos en cada valor. Un polinomio global de grado cuatro da un salto significativo. ¿Eso identifica el efecto de recibir la beca cerca del corte?",
+    "criterios": ["Separa oferta y recepción y pregunta por sharp/fuzzy", "Reconoce pocos valores de soporte pese a gran N", "Cuestiona polinomio global y extrapolación", "Distingue continuidad de local randomization y exige sus supuestos"],
+    "fallos_criticos": ["Miles de alumnos resuelven por sí solos el soporte local", "Interpreta significación del polinomio como identificación"]
+  },
+  {
+    "id": "aipw_clipping",
+    "solicitud": "Quiero el ATE de un programa voluntario. Usé AIPW con random forests, cross-fitting y propensiones truncadas a 0.1 y 0.9. No eliminé filas. ¿La doble robustez garantiza que mi IC es válido y que ahora estimo el efecto en la población con overlap?",
+    "criterios": ["Explicita identificación observacional", "Separa consistencia e inferencia doblemente robusta", "Explica límites de cross-fitting", "Distingue clipping, trimming y población objetivo"],
+    "fallos_criticos": ["Cross-fitting garantiza cobertura sin más condiciones", "Clipping redefine automáticamente el estimando como efecto de overlap"]
+  },
+  {
+    "id": "perdidas",
+    "solicitud": "En un ensayo se perdió 30% del grupo tratado y 10% del control. Imputé el resultado con edad y sexo y quiero presentar el ATE de toda la muestra asignada. Las tasas de respuesta son distintas, ¿la imputación arregla el problema?",
+    "criterios": ["Precisa estimando y proceso de observación", "Solicita motivos y predictores de pérdidas", "No supone MAR ni validez del modelo de imputación", "Plantea sensibilidad o cotas con condiciones y población explícitas"],
+    "fallos_criticos": ["Imputar elimina automáticamente sesgo selectivo", "Cotas de Lee identifican siempre el ATE original"]
+  },
+  {
+    "id": "tratamiento_longitudinal",
+    "solicitud": "Un subsidio se renueva mensualmente según ingresos. El subsidio del mes pasado cambia los ingresos actuales, que predicen renovación y empleo futuro. Quiero el efecto de recibirlo durante seis meses. ¿Incluyo los ingresos mensuales como controles en una regresión?",
+    "criterios": ["Define régimen sostenido y comparación", "Reconoce confusión temporal afectada por exposición previa", "Explica límites tanto de ajustar convencionalmente como de omitir ingresos", "Propone g-métodos con intercambiabilidad secuencial, soporte y temporalidad"],
+    "fallos_criticos": ["Basta con excluir todos los ingresos porque son mediadores", "Un score basal resuelve la exposición repetida"]
+  },
+  {
+    "id": "politica",
+    "solicitud": "Mi modelo de uplift tiene el mejor Qini en el conjunto de prueba. Probé varios umbrales en ese conjunto y elegí tratar al 20%. Cada tratamiento tiene un costo relevante. ¿Cómo demuestro que esta política es mejor que la actual?",
+    "criterios": ["Reconoce selección del umbral con datos de evaluación", "Define valor o beneficio neto y capacidad", "Propone evaluación independiente adecuada a asignación y soporte", "Compara con política vigente e incorpora incertidumbre de la diferencia"],
+    "fallos_criticos": ["Mejor Qini prueba mayor beneficio neto", "Ignora selección del umbral al construir el IC"]
+  },
+  {
+    "id": "ensayo_pares",
+    "solicitud": "Asignamos seis municipios, organizados en tres pares, con un tratado por par. Tenemos 12.000 personas. Una regresión individual da p<0.01. ¿Puedo confirmar un efecto promedio positivo con una prueba exacta por permutaciones de personas?",
+    "criterios": ["Identifica municipios y pares como diseño relevante", "Reproduce asignaciones permitidas y reconoce solo ocho combinaciones", "Distingue nulo agudo de promedio cero con heterogeneidad", "Explica límites de resolución y precisión sin inventar asignaciones"],
+    "fallos_criticos": ["Permuta personas como si hubieran sido asignadas independientemente", "Prueba exacta del nulo agudo equivale sin más a inferencia exacta del promedio"]
+  }
+]

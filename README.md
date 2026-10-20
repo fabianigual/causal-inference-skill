@@ -25,7 +25,7 @@ Para ejecutar los ejemplos Python, instala sus dependencias según la sección d
 - Explorar heterogeneidad del efecto y modelos de uplift con CausalML cuando corresponda.
 - Preparar resultados reproducibles en Python, con tablas, gráficos y referencias metodológicas.
 
-Puede orientar problemas experimentales y observacionales, diferencias en diferencias, propensity score matching, regresión discontinua y estrategias con variables instrumentales. DiD y PSM cuentan con guías específicas. Los scripts incluyen poder e inferencia básicos, un DiD sintético 2×2 y diagnósticos PSM; los diseños más complejos requieren un procedimiento adecuado al caso.
+Puede orientar problemas experimentales y observacionales, diferencias en diferencias, propensity score matching, regresión discontinua y estrategias con variables instrumentales. Las referencias incluyen criterios de ajuste observacional, pérdidas, tratamientos longitudinales y evaluación de reglas de tratamiento. Los scripts incluyen poder e inferencia básicos, un DiD sintético 2×2 y diagnósticos PSM; las demás guías orientan decisiones y requieren elegir y validar una implementación adecuada al caso.
 
 ## Cómo está pensada
 
@@ -49,6 +49,8 @@ La [guía PSM](references/psm.md) profundiza selección sobre observables, ATT y
 
 La idea es que indique cómo tomar decisiones en un problema real: qué comparación puede defenderse, qué población representa el efecto y qué puntos de atención quedan abiertos. Las dos guías incluyen fórmulas, propuestas de tablas y gráficos, planificación y sensibilidad. También explican cómo combinar matching y DiD sin asumir que un método resuelve automáticamente los supuestos del otro.
 
+Al combinar matching y DiD, la guía considera que emparejar resultados previos ruidosos puede introducir regresión a la media. El balance inicial no garantiza tendencias paralelas en la muestra emparejada. Para otros diseños, las referencias de [IV](references/iv.md), [RD](references/rd.md), [ajuste observacional](references/ajuste-observacional.md), [experimentos](references/experimentos.md) y [selección y longitudinalidad](references/seleccion-longitudinal.md) conectan supuestos, estimandos e inferencia con las decisiones del análisis.
+
 ## CausalML
 
 La skill incorpora una [guía de uso de CausalML](references/causalml.md), la biblioteca de Python presentada por [Chen et al. (2020)](https://arxiv.org/abs/2002.11631).
@@ -56,6 +58,8 @@ La skill incorpora una [guía de uso de CausalML](references/causalml.md), la bi
 Incluye criterios para elegir meta-learners y árboles o bosques causales/uplift, revisar propensión y soporte, separar entrenamiento de evaluación y considerar incertidumbre. El foco es estimar y evaluar efectos heterogéneos bajo un argumento de identificación explícito.
 
 La guía distingue CATE de efecto individual, y ranking de calibración e inferencia. También revisa el uso de Qini/AUUC fuera de muestra y detalles de la API que pueden afectar la interpretación. Las firmas y capacidades deben comprobarse en la [documentación oficial de la versión utilizada](https://causalml.readthedocs.io/en/stable/causalml.html).
+
+Para evaluar una regla de tratamiento, incorpora valor de política, costos, capacidad y comparación con una alternativa factible. La elección del umbral debe separarse de la evaluación final; un mejor Qini no demuestra por sí solo mayor beneficio neto.
 
 
 ## Ejemplos de uso
@@ -148,23 +152,33 @@ El primer ejemplo genera curvas de poder, MDE y precisión para dos brazos indep
 | [`references/identificacion.md`](references/identificacion.md) | Identificación, temporalidad y amenazas |
 | [`references/did.md`](references/did.md) | DiD: identificación, estimadores, inferencia, poder y sensibilidad |
 | [`references/psm.md`](references/psm.md) | PSM: diseño, soporte, balance, matching, inferencia y sensibilidad |
+| [`references/ajuste-observacional.md`](references/ajuste-observacional.md) | ATE/ATT mediante estandarización, IPW y AIPW; soporte e inferencia |
+| [`references/iv.md`](references/iv.md) | IV: supuestos, LATE, primera etapa e instrumentos débiles |
+| [`references/rd.md`](references/rd.md) | RD: efecto local, marcos de identificación, soporte y sesgo |
+| [`references/experimentos.md`](references/experimentos.md) | Ensayos: asignación, ajuste basal, dependencia y randomización |
+| [`references/seleccion-longitudinal.md`](references/seleccion-longitudinal.md) | Pérdidas, censura y confusión temporal afectada por tratamiento previo |
 | [`references/poder-inferencia.md`](references/poder-inferencia.md) | Poder, precisión, intervalos y simulación |
 | [`references/formulas.md`](references/formulas.md) | Fórmulas, notación y condiciones de uso |
 | [`references/causalml.md`](references/causalml.md) | Selección, uso y evaluación con CausalML |
 | [`references/python-visualizacion.md`](references/python-visualizacion.md) | Tablas y gráficos académicos en Python |
 | [`references/validacion.md`](references/validacion.md) | Casos para revisar el comportamiento de la skill |
+| [`references/validacion-resultados.md`](references/validacion-resultados.md) | Comprobaciones realizadas, versiones y límites de la validación |
 | [`references/fuentes.md`](references/fuentes.md) | Fuentes metodológicas y documentación técnica |
 | [`scripts/`](scripts/) | Cálculos básicos y ejemplos reproducibles de poder, DiD y PSM |
+| [`tests/`](tests/) | Pruebas numéricas y solicitudes con rúbricas para evaluar al asesor |
 | [`assets/paper.mplstyle`](assets/paper.mplstyle) | Estilo visual para Matplotlib |
 | [`agents/openai.yaml`](agents/openai.yaml) | Nombre y descripción para la interfaz |
 
 El `.gitignore` excluye entornos, caches, archivos locales, configuración de entorno y las carpetas de datos y resultados. Conserva el código, las referencias y los assets; no excluye de manera general extensiones como CSV, JSON, PNG, SVG o TEX.
 
+Para comprobar los cálculos, ejecuta `python -m unittest discover -s tests -v` con las dependencias básicas disponibles. La [guía de validación](references/validacion.md) explica cómo evaluar por separado las respuestas de Codex. Pasar las pruebas numéricas no valida automáticamente el comportamiento del asesor ni las integraciones opcionales.
+
 ## TODOs
 
 La idea es seguir profundizando la skill con tareas verificables: qué recurso se entregará, qué problema resolverá y cómo se comprobará. El foco sigue siendo la identificación causal y las decisiones que permiten hacer una evaluación defendible en escenarios reales.
 
-- [ ] Incluir casos donde corresponda limitar la conclusión causal o solicitar información decisiva.
+- [x] Incluir solicitudes y rúbricas donde corresponda limitar la conclusión causal o solicitar información decisiva.
+- [ ] Comparar respuestas con y sin skill sobre casos reservados, con repeticiones y resultados registrados.
 - [ ] Ejecutar las integraciones con `differences` y CausalML en entornos reproducibles, registrando versiones y resultados.
 - [ ] Añadir un ejemplo completo de DiD con adopción escalonada: ATT por cohorte y período, agregación, event study e incertidumbre.
 - [ ] Añadir un ejemplo completo de PSM con estimación del efecto e intervalos respaldados para el algoritmo elegido, documentando exclusiones, pesos y reutilización.
@@ -174,8 +188,11 @@ La idea es seguir profundizando la skill con tareas verificables: qué recurso s
 
 - [ ] Ampliar simulaciones de poder y precisión para clusters, tamaños desiguales, autocorrelación, pérdidas y soporte débil; revisar sesgo, error tipo I y cobertura.
 - [ ] Incorporar ejemplos ejecutables de sensibilidad a tendencias paralelas y confusión no medida, con parámetros interpretables.
-- [ ] Profundizar pérdidas selectivas, incumplimiento e interferencia, conectando cada problema con identificación e inferencia.
-- [ ] Desarrollar módulos específicos de regresión discontinua y variables instrumentales.
+- [x] Incorporar guías sobre pérdidas selectivas, tratamientos longitudinales e incumplimiento; conectar supuestos, población e inferencia.
+- [ ] Desarrollar ejemplos ejecutables de esas guías y profundizar interferencia según exposición y diseño.
+- [x] Desarrollar guías metodológicas de regresión discontinua y variables instrumentales.
+- [ ] Añadir implementaciones contrastadas de RD e IV y casos con soporte local limitado o instrumentos débiles.
+- [x] Incorporar criterios para ajuste observacional, ensayos y valor de una regla de tratamiento.
 - [ ] Completar las fichas de fórmulas con condiciones de uso, derivación breve, ejemplo numérico e implementación contrastada.
 - [ ] En test A/B, revisar asignación persistente y usuarios con observaciones repetidas, desbalance respecto de la proporción de asignación prevista (SRM), registro de exposición y problemas de instrumentación; definir cómo tratar métricas múltiples, consultas repetidas a resultados y reglas de parada, distinguiendo horizonte fijo y análisis secuencial.
 
@@ -184,7 +201,8 @@ La idea es seguir profundizando la skill con tareas verificables: qué recurso s
 - [ ] Crear funciones reutilizables para mapas de adopción, event studies, Love plots, soporte y sensibilidad, con exportación académica.
 - [ ] Para el caso A/B, generar en Python tablas por variante, efectos e intervalos, curvas de poder/MDE y diagnósticos de asignación y seguimiento temporal, con estilo de paper y notas sobre muestra, unidades y método de incertidumbre.
 - [ ] Incorporar un caso aplicado reproducible con datos públicos y contexto documentado.
-- [ ] Automatizar comprobaciones de código, referencias locales y formato matemático.
+- [x] Añadir pruebas numéricas de los ejemplos y casos límite de matching.
+- [ ] Automatizar comprobaciones de referencias locales y formato matemático.
 - [ ] Definir licencia, criterios de contribución y revisión periódica de referencias y APIs.
 
 ## Referencias metodológicas

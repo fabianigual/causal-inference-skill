@@ -34,14 +34,13 @@ def greedy_pairs(data, score_col="logit_ps", caliper_sd=0.2, seed=42):
     """Matching 1:1 sin reemplazo. Orden tratado aleatorio; empates por orden control.
 
     Distancia absoluta en score_col; caliper_sd multiplica SD inicial (ddof=0).
+    Con score constante, admite coincidencias exactas con umbral cero.
     Guarda IDs originales. No es matching óptimo ni el algoritmo de CausalML.
     """
     _check_data(data, [score_col])
     if not np.isfinite(caliper_sd) or caliper_sd <= 0:
         raise ValueError("caliper_sd debe ser finito y positivo.")
     score_sd = float(data[score_col].std(ddof=0))
-    if score_sd <= 0:
-        raise ValueError("Score sin variación: definir otra estrategia de comparación.")
     threshold = caliper_sd * score_sd
     rng = np.random.default_rng(seed)
     treated_ids = data.index[data.treated == 1].to_numpy().copy()
